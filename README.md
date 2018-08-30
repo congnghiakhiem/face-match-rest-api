@@ -2,7 +2,7 @@
 
 ## Overview
 
-This documentation describes the Face Matching API v1. If you have any queries please contact support.
+This documentation describes the Face Matching API v1. If you have any queries please contact support. The postman collection can be found at this [link](https://www.getpostman.com/collections/7c7727ceda7ebe3bb7ce).
 
 ## Table Of Contents
 
