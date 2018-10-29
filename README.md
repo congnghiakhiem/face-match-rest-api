@@ -15,6 +15,7 @@ This documentation describes the Face Matching API v1. If you have any queries p
 	- [Authentication](#authentication)
 	- [Media Types](#media-types)
 	- [API Endpoint](#api-endpoint)
+	- [Data logging and clientId](#data-logging-and-clientid)
 
 ## Schema
 
@@ -166,3 +167,13 @@ In this scenario please ensure that the form-data is correctly created.
 		  -F 'image1=@image_1_path.png' \
 		  -F 'image2=@image_2_path.png'
     ```
+    
+## Data logging and clientId
+
+These optional params are used to facilitate better debugging of the system. 
+
+`clientId` is a unique identifier that is assigned to the end customer by the API user. This would need to be passed in the request body. And the parameter, would be the 
+same for the different API calls made for the of same customer.
+
+By default, the input images are not stored by HyperVerge systems, however, if the user sets the optional parameter `dataLogging` to string value "yes", then the images will be stored and the requestId can be 
+provided to HyperVerge to check the uploaded image incase of an inaccurate extraction.
