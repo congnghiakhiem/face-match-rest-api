@@ -28,7 +28,7 @@ All optional and compulsory parameters are passed as part of the request body.
 ## Root Endpoint
 A `GET` request can be issued to the root endpoint to check for successful connection. Users in the Asia Pacific region can use the URL given below. The actual API URL for other geographies will be provided later.
 
-	 curl https://apac.docs.hyperverge.co/v1/
+	 curl https://apac.faceid.hyperverge.co/v1/
 
 The `plain/text` reponse of `Hello!` should be received.
 
@@ -36,7 +36,7 @@ The `plain/text` reponse of `Hello!` should be received.
 
 Currently, an appId, appKey combination is passed in the request header. The appId and appKey are provided on request by the HyperVerge team. If you would like to try the API, please reach out to contact@hyperverge.co
 
-	curl -X POST https://apac.docs.hyperverge.co/v1/photo/verifyPair\
+	curl -X POST https://apac.faceid.hyperverge.co/v1/photo/verifyPair\
 	  -H 'appid: xxx' \
 	  -H 'appkey: yyy' \
 	  -H 'content-type: multipart/form-data;' \
@@ -159,7 +159,7 @@ In this scenario please ensure that the form-data is correctly created.
 * **Sample Calls:**
 
     ```
-    curl -X POST https://apac.docs.hyperverge.co/v1/photo/verifyPair \
+    curl -X POST https://apac.faceid.hyperverge.co/v1/photo/verifyPair \
 		  -H 'appid: xxx' \
 		  -H 'appkey: yyyy' \
 		  -H 'content-type: multipart/form-data;\
