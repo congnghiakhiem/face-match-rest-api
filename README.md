@@ -2,7 +2,7 @@
 
 ## Overview
 
-This documentation describes the Face Matching API v1. If you have any queries please contact support. The postman collection can be found at this [link](https://www.getpostman.com/collections/7c7727ceda7ebe3bb7ce).
+This documentation describes the Face Matching API v1. The postman collection can be found at this [link](https://www.getpostman.com/collections/7c7727ceda7ebe3bb7ce).
 
 ## Table Of Contents
 
@@ -11,10 +11,13 @@ This documentation describes the Face Matching API v1. If you have any queries p
 	- [Table Of Contents](#table-of-contents)
 	- [Schema](#schema)
 	- [Parameters](#parameters)
-	- [Root Endpoint](#root-endpoint)
+	- [Headers](#headers)
+	- [Endpoints](#endpoint)
 	- [Authentication](#authentication)
 	- [Media Types](#media-types)
-	- [API Endpoint](#api-endpoint)
+	- [Sample Code](#sample-code)
+	- [API Call Structure](#api-call-structure)
+	- [Response Structure](#response-structure)
 	- [Data logging and clientId](#data-logging-and-clientid)
 
 ## Schema
@@ -25,42 +28,69 @@ It is recommended that HTTPS is used for all API calls. For HTTPS, only TLS v1.2
 ## Parameters
 All optional and compulsory parameters are passed as part of the request body.
 
-## Root Endpoint
-A `GET` request can be issued to the root endpoint to check for successful connection. Users in the Asia Pacific region can use the URL given below. The actual API URL for other geographies will be provided later.
+## Header
+Only 'appId', 'appKey' and 'content-type' should be passed as part of the header.
 
-	 curl https://apac.faceid.hyperverge.co/v1/
+##  Endpoints
+A `GET` request can be issued to the root endpoint to check for successful connection. The `plain/text` reponse of `Hello!` should be received.
 
-The `plain/text` reponse of `Hello!` should be received.
+Please use one of the below URLs based on your region.
+
+India:
+https://ind.faceid.hyperverge.co/v1/photo/verifyPair
+
+Asia Pacific: 
+https://apac.faceid.hyperverge.co/v1/photo/verifyPair
+
+The API URLs for other geographies will be provided later.
+
 
 ## Authentication
 
-Currently, an appId, appKey combination is passed in the request header. The appId and appKey are provided on request by the HyperVerge team. If you would like to try the API, please reach out to contact@hyperverge.co
+- Currently, an appId, appKey combination is passed in the request header. The appId and appKey are provided on request by the HyperVerge team. If you would like to try the API, please reach out to contact@hyperverge.co
 
-	curl -X POST https://apac.faceid.hyperverge.co/v1/photo/verifyPair\
-	  -H 'appid: xxx' \
-	  -H 'appkey: yyy' \
-	  -H 'content-type: multipart/form-data;' \
-	  -F 'image1=@abc.png' \
-	  -F 'image2=@def.png' \
-	  -F 'type=id'
+- On failed attempt with invalid credentials or unauthorized access the HTTP response would have a status code : 401
 
-
-On failed attempt with invalid credentials or unauthorized access the HTTP response would have a status code : 401
-
-Please do not expose the appid and appkey on browser applications. In case of a browser application, set up the API calls from the server side.
+- Please do not expose the appId and appKey on browser applications. In case of a browser application, set up the API calls from the server side.
 
 ## Media Types
 
 Currently, `jpeg, png and tiff` images are supported by the API. The image can be passed as url or uploaded.
 
+## Sample Code
 
-## API Endpoint
+Asia Pacific:
 
-Used to verify if the 2 face images belong to the same person
+    curl -X POST https://apac.faceid.hyperverge.co/v1/photo/verifyPair \
+		  -H 'appid: xxx' \
+		  -H 'appkey: yyyy' \
+		  -H 'content-type: multipart/form-data;\
+          -F 'type=id'\
+		  -F 'image1=@image_1_path.png' \
+		  -F 'image2=@image_2_path.png'
 
-* **URL**
+India:
 
-  - /photo/verifyPair
+    curl -X POST https://ind.faceid.hyperverge.co/v1/photo/verifyPair \
+		  -H 'appid: xxx' \
+		  -H 'appkey: yyyy' \
+		  -H 'content-type: multipart/form-data;\
+          -F 'type=id'\
+		  -F 'image1=@image_1_path.png' \
+		  -F 'image2=@image_2_path.png'
+    
+## API Call Structure
+
+The API call is used to determine if 2 face images belong to the same person
+
+* **Endpoint**
+
+
+   https://ind.faceid.hyperverge.co/v1/photo/verifyPair/photo/verifyPair 	(For India)
+   
+	or
+		
+	https://apac.faceid.hyperverge.co/v1/photo/verifyPair 	(For APAC Region)
 
 * **Method:**
 
@@ -74,10 +104,13 @@ Used to verify if the 2 face images belong to the same person
 
 * **Request Body**
 
-    - type : use 'id' for Selfie to ID card / Application photo matching and 'selfie' for Selfie to Selfie matching
+    - type : use '*id*' for Selfie to ID card photo matching and '*selfie*' for Selfie to Selfie matching
 	- image1, image2
 	or
 	- imageUrls
+
+## Response Structure
+
 * **Success Response:**
 
   * **Code:** 200 <br />
@@ -92,7 +125,6 @@ Used to verify if the 2 face images belong to the same person
                 "match" : "yes/no",
                 "match-score" : 95, // 0-100
                 "to-be-reviewed": "yes/no",
-				"match_score": 95 // 0-100; to be deprecated : it is same as match-score
 			}
 		}
 		```
@@ -142,7 +174,7 @@ There are 3 types of request errors and `HTTP Status Code 400` is returned in al
 
 All error messages follow the same syntax with the statusCode and status also being a part of the response body, and `string` error message with the description of the error.
 
-**Server Errors**
+* **Server Errors**
 We try our best to avoid these errors, but if by chance they do occur the response code will be 5xx.
 
 1. Form parse error or bad form-data
@@ -156,24 +188,14 @@ We try our best to avoid these errors, but if by chance they do occur the respon
     ```
 In this scenario please ensure that the form-data is correctly created.
 
-* **Sample Calls:**
 
-    ```
-    curl -X POST https://apac.faceid.hyperverge.co/v1/photo/verifyPair \
-		  -H 'appid: xxx' \
-		  -H 'appkey: yyyy' \
-		  -H 'content-type: multipart/form-data;\
-          -F 'type=selfie'\
-		  -F 'image1=@image_1_path.png' \
-		  -F 'image2=@image_2_path.png'
-    ```
-    
+
 ## Data logging and clientId
 
 These optional params are used to facilitate better debugging of the system. 
 
 `clientId` is a unique identifier that is assigned to the end customer by the API user. This would need to be passed in the request body. And the parameter, would be the 
-same for the different API calls made for the of same customer.
+same for the different API calls made for the same customer.
 
 By default, the input images are not stored by HyperVerge systems, however, if the user sets the optional parameter `dataLogging` to string value "yes", then the images will be stored and the requestId can be 
 provided to HyperVerge to check the uploaded image incase of an inaccurate extraction.
