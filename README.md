@@ -86,7 +86,7 @@ The API call is used to determine if 2 face images belong to the same person
 * **Endpoint**
 
 
-   https://ind.faceid.hyperverge.co/v1/photo/verifyPair/photo/verifyPair 	(For India)
+   https://ind.faceid.hyperverge.co/v1/photo/verifyPair 	(For India)
    
 	or
 		
