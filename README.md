@@ -12,7 +12,7 @@ This documentation describes the Face Matching API v1. The postman collection ca
 	- [Schema](#schema)
 	- [Parameters](#parameters)
 	- [Headers](#headers)
-	- [Endpoints](#endpoint)
+	- [Endpoints](#endpoints)
 	- [Authentication](#authentication)
 	- [Media Types](#media-types)
 	- [Sample Code](#sample-code)
@@ -28,10 +28,10 @@ It is recommended that HTTPS is used for all API calls. For HTTPS, only TLS v1.2
 ## Parameters
 All optional and compulsory parameters are passed as part of the request body.
 
-## Header
+## Headers
 Only 'appId', 'appKey' and 'content-type' should be passed as part of the header.
 
-##  Endpoints
+## Endpoints
 A `GET` request can be issued to the root endpoint to check for successful connection. The `plain/text` reponse of `Hello!` should be received.
 
 Please use one of the below URLs based on your region.
@@ -55,7 +55,7 @@ The API URLs for other geographies will be provided later.
 
 ## Media Types
 
-Currently, `jpeg, png and tiff` images are supported by the API. The image can be passed as url or uploaded.
+Currently, `jpeg, png and tiff` images are supported by the API.
 
 ## Sample Code
 
@@ -106,8 +106,6 @@ The API call is used to determine if 2 face images belong to the same person
 
     - type : use '*id*' for Selfie to ID card photo matching and '*selfie*' for Selfie to Selfie matching
 	- image1, image2
-	or
-	- imageUrls
 
 ## Response Structure
 
